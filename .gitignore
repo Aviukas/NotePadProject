@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+*.log
+*.sqlite
+*.swp
+*.swo
+*.pyc.swp
+.venv/
+*.env

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ mode }} Category</h1>
+
+  <form action="{{ url_for('create_edit_category', category_id=category_id) }}" method="POST">
+    {{ category_form.csrf_token }}
+    <div>
+      {{ category_form.name.label }}
+      {{ category_form.name }}
+    </div>
+    <div>
+      {{ category_form.submit }}
+    </div>
+  </form>
+
+  <div class="links">
+    <a href="{{ url_for('index') }}">Cancel</a>
+  </div>
+{% endblock %}

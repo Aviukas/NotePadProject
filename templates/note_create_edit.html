@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ mode }} Note</h1>
+
+  <form action="{{ url_for('create_edit_note', note_id=note_id) }}" method="POST" enctype="multipart/form-data">
+    {{ note_form.csrf_token }}
+    <div>
+      {{ note_form.title.label }}
+      {{ note_form.title }}
+    </div>
+    <div>
+      {{ note_form.content.label }}
+      {{ note_form.content }}
+    </div>
+    <div>
+      {{ note_form.category.label }}
+      {{ note_form.category }}
+    </div>
+    <div>
+      {{ note_form.image.label }}
+      {{ note_form.image }}
+    </div>
+    <div>
+      {{ note_form.submit }}
+    </div>
+  </form>
+
+  <div class="links">
+    <a href="{{ url_for('index') }}">Cancel</a>
+  </div>
+{% endblock %}
+

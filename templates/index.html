@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Home</h1>
+
+  <form action="{{ url_for('search') }}" method="POST">
+    {{ search_form.csrf_token }}
+    {{ search_form.search.label }}
+    {{ search_form.search }}
+    {{ search_form.submit }}
+  </form>
+
+  <div class="categories">
+    <h2>Categories</h2>
+    <ul>
+      {% for category in categories %}
+        <li>
+          <a href="{{ url_for('filter_notes_by_category', category_id=category.id) }}">
+            {{ category.name }}
+          </a>
+          <a href="{{ url_for('edit_category', category_id=category.id) }}">Edit</a>
+          <form action="{{ url_for('delete_category', category_id=category.id) }}" method="POST" class="delete-category-form" style="display: inline;">
+            {{ search_form.csrf_token }}
+            <button type="submit" style="background: none; border: none; color: #007bff; cursor: pointer; padding: 0;">Delete</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+    <a href="{{ url_for('create_category') }}">Create New Category</a>
+  </div>
+
+  <div class="notes">
+    <h2>Notes</h2>
+    {% for note in notes %}
+      <div class="note">
+        <h3>{{ note.title }}</h3>
+        <p>{{ note.content }}</p>
+        {% if note.image_path %}
+          <img src="{{ url_for('static', filename=note.image_path) }}" alt="{{ note.title }}">
+        {% endif %}
+        {% if note.category %}
+          <p>Category: {{ note.category.name }}</p>
+        {% endif %}
+        <div><a href="{{ url_for('create_edit_note', note_id=note.id) }}">Edit Note</a></div>
+        <form action="{{ url_for('delete_note', note_id=note.id) }}" method="POST" class="delete-note-form" style="display: inline;">
+          {{ search_form.csrf_token }}
+          <button type="submit" style="background: none; border: none; color: #007bff; cursor: pointer; padding: 0;">Delete</button>
+        </form>
+      </div>
+    {% endfor %}
+    <div><a href="{{ url_for('create_edit_note') }}">Create New Note</a></div>
+  </div>
+{% endblock %}
